@@ -54,12 +54,12 @@
         {
           "direction": "backward",
           "editorMode": "builder",
-          "expr": "{filename=\"/var/log/bootstrap.log\"}",
+          "expr": "{service_name=\"dockerlogs\"}",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Example of bootstrap.log",
+      "title": "Example of docker logs",
       "type": "logs"
     }
   ],
@@ -75,7 +75,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Example Logging Dashboard",
-  "uid": "feicdjrbjt8n4e",
-  "version": 1
+  "title": "Example Docker Logging Dashboard",
+  "uid": "feicdjrbjt8n4a",
+  "version": 4
 }
