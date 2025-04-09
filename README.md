@@ -18,3 +18,9 @@ docker compose up -d
 ```
 
 If this doesn't work, there may be some issue with permissions with the associated volumes or for the ports
+
+You can pull up the example dashboards in grafana with the following command. You may use firefox or any other browser.
+
+```bash
+firefox http://localhost:3000/dashboards
+```
