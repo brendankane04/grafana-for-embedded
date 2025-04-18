@@ -1,0 +1,133 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "An example of a dashboard which can display logs",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "panels": [
+    {
+      "description": "A simple description of the dashboard",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# 🔍 Simple Log Viewer: `bootstrap.log`\n\nThis dashboard demonstrates how Grafana can be used to visualize logs from a local file, in this case:\n\nUsing Grafana and Loki (or a compatible log datasource), we can:\n- View live log streams\n- Filter logs by content or time\n- Explore system activity during boot\n\nThis is a minimal example meant to show how easy it is to get started with log observability using Grafana.\n\nYou can view the contents of the file `/var/log/bootstrap.log` below. \nYou can also filter the logs by using the 'Line Filter' text box above. \n\n## Changing the File You're Viewing\nIf you wish to, you can modify the log file viewed by editing the panel below. \nClick on the three dots at the top of the panel, scroll to the bottom of the page, and change the file `filename` must equal.\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.6.0",
+      "title": "Dashboard Overview",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 1,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{job=\"varlogs\", filename=\"/var/log/auth.log\"} |~ `(?i)$filter`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Logs of bootstrap.log",
+      "transparent": true,
+      "type": "logs"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "logs",
+    "simple",
+    "great starting point"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "description": "Filters the contents of the log output. Does nothing if empty.\n*(Case Insensitive)*",
+        "label": "Line Filter",
+        "name": "filter",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Basic Logging Dashboard",
+  "uid": "feicdjrbjt8n4e",
+  "version": 3
+}

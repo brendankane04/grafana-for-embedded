@@ -1,0 +1,166 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "An example of a dashboard which can display logs",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "This dashboard shows how grafana can visualize logs from docker. \n\nThe panel below will select logs from docker container based on the container ID ( The \"Container Input Box).\n\nThe panel will then filter the lines based on the log filter (The \"Log Filter\" Input Box). \n\nThe logs are stored as JSON objects with other metadata, so a transformation to extract the actual log is also run on the data before displaying it to the panel.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.6.0",
+      "title": "Overview",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "description": "This textbox will select logs from docker container based on the container ID ( The \"Container Input Box).\n\nThe panel will then filter the lines based on the log filter (The \"Log Filter\" Input Box). \n\nThe logs are stored as JSON objects with other metadata, so a transformation to extract the log is also run on the data before displaying it to the panel.",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 1,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{service_name=\"dockerlogs\", filename=~\".*$container_hash.*\"} |~ `(?i)$log_filter`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Filtered Docker Logs",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "delimiter": ",",
+            "format": "json",
+            "jsonPaths": [
+              {
+                "path": "log"
+              }
+            ],
+            "keepTime": true,
+            "replace": true,
+            "source": "Line"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "logs"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "logs",
+    "docker"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "description": "The ID of the container whose logs you want to see.\nIt can be a substring of the hash.\nIf left empty, all logs from all containers will be shown.",
+        "label": "CONTAINER ID",
+        "name": "container_hash",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "description": "Filters the logs and only shows logs which contain the contents of the log filter.\n*Case Insensitive)*",
+        "label": "LOG FILTER",
+        "name": "log_filter",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Docker Logging Dashboard",
+  "uid": "feicdjrbjt8n4a",
+  "version": 5
+}
