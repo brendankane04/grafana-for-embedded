@@ -1,0 +1,7 @@
+devices:
+  - device: /dev/ttyUSB0
+    baudrate: 9600
+    logfile: /var/log/ttyUSB0.log
+  - device: /dev/ttyUSB1
+    baudrate: 115200
+    logfile: /var/log/ttyUSB1.log
