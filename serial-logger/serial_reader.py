@@ -9,7 +9,7 @@ CONFIG_FILE = "config.yaml"
 def read_serial(device_config):
     dev = device_config["device"]
     baud = device_config.get("baudrate", 9600)
-    logfile = device_config["logfile"]
+    logfile = f"/var/log/{device_config["logfile"]}"
 
     try:
         ser = serial.Serial(dev, baud, timeout=1)
@@ -26,9 +26,8 @@ def read_serial(device_config):
             try:
                 line = ser.readline().decode('utf-8', errors='replace')
                 if line:
-                    timestamped_line = f"{time.strftime('%Y-%m-%d %H:%M:%S')} {line}"
-                    print(f"[{dev}] {timestamped_line.strip()}")
-                    f.write(timestamped_line)
+                    print(f"[{dev}] {line.strip()}")
+                    f.write(f"[{dev}] {line.strip()}\n")
                     f.flush()
             except Exception as e:
                 print(f"[{dev}] Error: {e}")
@@ -44,11 +43,9 @@ def main():
         print(f"Error: Failed to load {CONFIG_FILE}: {e}")
         return
 
-    threads = []
     for device in config.get("devices", []):
-        t = threading.Thread(target=read_serial, args=(device,), daemon=True)
+        t = threading.Thread(target=read_serial, name=f"Serial Reader ({device["device"]})", args=(device,))
         t.start()
-        threads.append(t)
 
     # Keep main thread alive
     while True:
