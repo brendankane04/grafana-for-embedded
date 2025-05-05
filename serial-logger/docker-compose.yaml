@@ -1,0 +1,8 @@
+services:
+  serial_logger:
+    build: .
+    privileged: true
+    volumes:
+      - "/var/log:/var/log"
+      - "./config.yaml:/app/config.yaml:ro"
+    restart: unless-stopped
