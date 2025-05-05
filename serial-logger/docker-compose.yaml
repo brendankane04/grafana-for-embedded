@@ -3,6 +3,6 @@ services:
     build: .
     privileged: true
     volumes:
-      - "./host_logs:/var/log"
+      - "/var/log:/var/log"
       - "./config.yaml:/app/config.yaml:ro"
     restart: unless-stopped
