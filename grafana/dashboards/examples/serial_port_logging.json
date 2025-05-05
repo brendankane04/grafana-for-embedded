@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -39,7 +39,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Overview\n\nBy following the instructions provided in the `serial-logger` README, you can access and view the logs captured from a serial device directly in this panel.\n",
+        "content": "## Overview\n\nBy following the instructions provided in the `serial-logger` README, you can access and view the logs captured from a serial device directly in this panel.\n\n[README Link](https://github.com/brendankane04/grafana-docker-compose/tree/master/serial-logger)",
         "mode": "markdown"
       },
       "pluginVersion": "11.6.0",
@@ -82,7 +82,7 @@
           },
           "direction": "backward",
           "editorMode": "builder",
-          "expr": "{job=\"varlogs\", filename=\"/var/log/$logfile\"} |= ``",
+          "expr": "{job=\"varlogs\", filename=\"/var/log/$logfile\"} |~ `(?i)$linefilter`",
           "queryType": "range",
           "refId": "A"
         }
@@ -119,6 +119,24 @@
           }
         ],
         "query": "ttyACM0_capture.log",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "description": "Only show lines in the serial capture containing this text as a substring \n(case insensitive)",
+        "label": "Line Filter",
+        "name": "linefilter",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
         "type": "textbox"
       }
     ]
