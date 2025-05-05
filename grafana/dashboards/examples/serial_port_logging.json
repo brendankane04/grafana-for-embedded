@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -94,7 +94,13 @@
   ],
   "preload": false,
   "schemaVersion": 41,
-  "tags": [],
+  "tags": [
+    "serial",
+    "basic",
+    "UART",
+    "Console",
+    "RS-232"
+  ],
   "templating": {
     "list": [
       {
