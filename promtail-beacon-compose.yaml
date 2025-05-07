@@ -1,0 +1,17 @@
+services:
+  promtail:
+    image: grafana/promtail:3.4
+    environment:
+      # https://grafana.com/docs/loki/latest/reference/loki-http-api/#ingest-logs
+      - LOKI_URL=http://<LOKI SERVER URL/HOSTNAME/IP>:3100/loki/api/v1/push # You can set this to the push URL of your Loki instance 
+    volumes:
+      - ./promtail/config/:/etc/promtail/
+      - /var/log/:/var/log/
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9080:9080" 
+      - "9090:9090" 
+      - "3000:3000"
+    command: -config.file=/etc/promtail/config.yml -config.expand-env=true
+    restart: unless-stopped

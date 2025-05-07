@@ -43,3 +43,14 @@ You can pull up the example dashboards in grafana with the following command. Yo
 ```bash
 firefox http://localhost:3000/dashboards
 ```
+
+# Beacon Mode
+
+You can start only the promtail instance if you want to send the logs from the host to another you have network access to, also known as "Beacon Mode". This can be done in the following two steps. 
+
+1. Obtain your loki push API URL from your loki instance (it's similar to the default compose file, simply change the hostname to the remote host)
+2. Replace line 6 of `promtail-beacon-compose.yaml` with the Loki URL obtained in step 1.
+```
+      - LOKI_URL=<LOKI PUSH URL> # You can set this to the push URL of your Loki instance 
+```
+3. Run the command `docker compose up -f promatil-beacon-compose.yaml` in the root of the repo.
