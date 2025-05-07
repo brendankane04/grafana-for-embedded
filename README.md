@@ -54,3 +54,13 @@ You can start only the promtail instance if you want to send the logs from the h
       - LOKI_URL=<LOKI PUSH URL> # You can set this to the push URL of your Loki instance 
 ```
 3. Run the command `docker compose up -f promatil-beacon-compose.yaml` in the root of the repo.
+
+The beacon will send the logs to a "Receiver" instance of the stack on another computer.
+
+If you want to run promtail to collect logs with your receive, you can run the normal docker compose up command.
+
+`docker compose up -d`
+
+If you don't want to run promtail on your receiver (like if you're running in a cloud server), you can avoid the promtail service with the following command.
+
+`docker compose up grafana loki -d`
