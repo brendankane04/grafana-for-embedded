@@ -1,6 +1,9 @@
 networks:
   grafana:
 
+volumes:
+  grafana_storage:
+
 services:
   promtail:
     image: grafana/promtail:3.4
@@ -37,6 +40,8 @@ services:
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/grafana/dashboards
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+      - 'grafana_storage:/var/lib/grafana'
     ports:
       - "3000:3000"
     networks:
