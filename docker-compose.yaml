@@ -24,6 +24,7 @@ services:
     image: grafana/loki:3.4.3
     volumes:
       - ./loki/config/:/etc/loki/
+      - grafana_storage:/var/lib/loki
     ports:
       - "3100:3100"
       - "9096:9096"
@@ -34,14 +35,11 @@ services:
 
   grafana:
     image: grafana/grafana:11.6.0
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/grafana/dashboards
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
-      - 'grafana_storage:/var/lib/grafana'
+      - grafana_storage:/var/lib/grafana
     ports:
       - "3000:3000"
     networks:
