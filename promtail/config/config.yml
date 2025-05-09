@@ -15,11 +15,11 @@ scrape_configs:
       - localhost
     labels:
       job: varlogs
-      __path__: /var/log/*
+      __path__: /var/log/*.log
 - job_name: docker_containers
   static_configs:
   - targets:
       - localhost
     labels:
       job: dockerlogs
-      __path__: /var/lib/docker/containers/*/*
+      __path__: /var/lib/docker/containers/*/*.log
