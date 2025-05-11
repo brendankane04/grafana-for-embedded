@@ -5,8 +5,12 @@ services:
       - "3020:3000"
     volumes:
       - /etc/passwd:/etc/passwd
+      - /etc/group:/etc/group
+      - /etc/shadow:/etc/shadow
+      - /etc/gshadow:/etc/gshadow
       - ./config:/home/wetty/config
-    command: --allow-iframe --base=/ --ssh-host=172.17.0.1 --conf=/home/wetty/config/terminal_on_host.json
+      - ~/.ssh:/home/wetty/.ssh
+    command: --allow-iframe --ssh-host=172.17.0.1 --base=/ # --conf=/home/wetty/config/terminal_on_host.json
     restart: unless-stopped
     privileged: true
     tty: true
