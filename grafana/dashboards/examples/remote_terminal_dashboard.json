@@ -39,7 +39,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "### 🔧 Remote Terminal Panel\n\nThis panel provides an interactive terminal directly within the Grafana dashboard by embedding an [**Wetty**](https://github.com/butlerx/wetty) session via an iframe.\n\nThe terminal connects to the target machine using Wetty, a web-based terminal client, allowing for live command execution and system interaction without leaving the dashboard.\n\n**Use Cases:**\n- Real-time troubleshooting\n- Manual command execution\n- Remote monitoring and maintenance\n\n> **⚠️ Note:** Access to this terminal is subject to the same authentication and security policies configured on the target host. Ensure only authorized users can access this dashboard.\n\n**Embedded URL:**  \n`https://<target-machine>:3020`",
+        "content": "### 🔧 Remote Terminal Panel\n\nThis panel provides an interactive terminal directly within the Grafana dashboard by embedding an [**Wetty**](https://github.com/butlerx/wetty) session via an iframe.\n\nThe terminal connects to the target machine using Wetty, a web-based terminal client, allowing for live command execution and system interaction without leaving the dashboard.\n\nThe address of the beacon running wetty is specified by \"Endpoint Hostname/IP\" above. The default is localhost.\n\n**Use Cases:**\n- Real-time troubleshooting\n- Manual command execution\n- Remote monitoring and maintenance\n\n> **⚠️ Note:** Access to this terminal is subject to the same authentication and security policies configured on the target host. Ensure only authorized users can access this dashboard.\n\n**Embedded URL:**  \n`https://<target-machine>:3020`",
         "mode": "markdown"
       },
       "pluginVersion": "11.6.0",
@@ -69,7 +69,26 @@
     "Control"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "text": "localhost",
+          "value": "localhost"
+        },
+        "description": "The hostname or IP address of the beacon server running wetty",
+        "label": "Endpoint Hostname/IP",
+        "name": "endpoint",
+        "options": [
+          {
+            "selected": true,
+            "text": "localhost",
+            "value": "localhost"
+          }
+        ],
+        "query": "localhost",
+        "type": "textbox"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -77,7 +96,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Remote Terminal Example ",
+  "title": "Remote Terminal Example",
   "uid": "eeljadpdm66f4c",
-  "version": 3
+  "version": 5
 }
