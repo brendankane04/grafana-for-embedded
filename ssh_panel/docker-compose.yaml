@@ -1,0 +1,11 @@
+services:
+  wetty:
+    image: wettyoss/wetty
+    ports:
+      - "3020:3000"
+    volumes:
+      - /etc/passwd:/etc/passwd
+      - ./:/home/wetty
+    command: --allow-iframe --base=/ --ssh-host=172.17.0.1
+    restart: unless-stopped
+    tty: true
