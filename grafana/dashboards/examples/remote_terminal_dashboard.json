@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 11,
+  "id": 12,
   "links": [],
   "panels": [
     {
@@ -39,11 +39,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "### 🔧 SSH Terminal Panel\n\nThis panel provides an interactive SSH terminal directly within the Grafana dashboard by embedding an [**Wetty**](https://github.com/butlerx/wetty) session via an iframe.\n\nThe terminal connects to the target machine using Wetty, a web-based SSH client, allowing for live command execution and system interaction without leaving the dashboard.\n\n**Use Cases:**\n- Real-time troubleshooting\n- Manual command execution\n- Remote monitoring and maintenance\n\n> **⚠️ Note:** Access to this terminal is subject to the same authentication and security policies configured on the target host. Ensure only authorized users can access this dashboard.\n\n**Embedded URL:**  \n`https://<target-machine>:3020`",
+        "content": "### 🔧 Remote Terminal Panel\n\nThis panel provides an interactive terminal directly within the Grafana dashboard by embedding an [**Wetty**](https://github.com/butlerx/wetty) session via an iframe.\n\nThe terminal connects to the target machine using Wetty, a web-based terminal client, allowing for live command execution and system interaction without leaving the dashboard.\n\n**Use Cases:**\n- Real-time troubleshooting\n- Manual command execution\n- Remote monitoring and maintenance\n\n> **⚠️ Note:** Access to this terminal is subject to the same authentication and security policies configured on the target host. Ensure only authorized users can access this dashboard.\n\n**Embedded URL:**  \n`https://<target-machine>:3020`",
         "mode": "markdown"
       },
       "pluginVersion": "11.6.0",
-      "title": "Panel Title",
+      "title": "Description",
       "type": "text"
     },
     {
@@ -55,19 +55,18 @@
       },
       "id": 1,
       "libraryPanel": {
-        "name": "SSH Terminal",
+        "name": "Remote Terminal",
         "uid": "eelj0ogeej3swd"
       },
-      "title": "SSH Terminal",
+      "title": "Remote Terminal",
       "type": "library-panel-ref"
     }
   ],
   "preload": false,
   "schemaVersion": 41,
   "tags": [
-    "SSH",
-    "Remote Control",
-    "Monitoring"
+    "terminal",
+    "Control"
   ],
   "templating": {
     "list": []
@@ -78,7 +77,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "SSH Terminal Example",
-  "uid": "delj9k015j37kf",
-  "version": 2
+  "title": "Remote Terminal Example ",
+  "uid": "eeljadpdm66f4c",
+  "version": 3
 }
