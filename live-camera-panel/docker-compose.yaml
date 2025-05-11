@@ -1,0 +1,18 @@
+services:
+  motion_camera:
+    environment:
+      - TZ="America/New_York"
+    build: .
+    privileged: true
+    volumes:
+      - "./config/config.yaml:/app/config.yaml:ro"
+    ports:
+      - "7999:7999"
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+      - "8085:8085"
+      - "8087:8087"
+    restart: unless-stopped
