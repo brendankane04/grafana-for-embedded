@@ -1,17 +1,16 @@
 services:
   wetty:
     image: wettyoss/wetty
-    ports:
-      - "3020:3000"
+    environment:
+      - PUID=1000
+      - PGID=1000
+    user: 1000:1000
     volumes:
-      - /etc/passwd:/etc/passwd
-    command: --allow-iframe --base=/ # --conf=/home/wetty/config/terminal_on_host.json
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    command: --allow-iframe --port=3020 --base=/
     restart: unless-stopped
     privileged: true
     tty: true
-    environment:
-      SSHHOST: '172.17.0.1'
-      SSHPORT: 22
-      NODE_ENV: 'development'
-    extra_hosts:
-      localhost: 172.17.0.1
+    network_mode: host
