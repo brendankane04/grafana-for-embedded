@@ -8,4 +8,5 @@ services:
       - ./:/home/wetty
     command: --allow-iframe --base=/ --ssh-host=172.17.0.1
     restart: unless-stopped
+    privileged: true
     tty: true
