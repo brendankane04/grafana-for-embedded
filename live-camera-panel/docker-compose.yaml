@@ -1,0 +1,11 @@
+services:
+  motion_camera:
+    environment:
+      - TZ="America/New_York"
+    build: .
+    privileged: true
+    volumes:
+      - "./config/motion.conf:/app/motion.conf:ro"
+    network_mode: host
+    restart: unless-stopped
+    command: motion -c /app/motion.conf
