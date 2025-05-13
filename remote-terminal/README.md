@@ -4,6 +4,8 @@ This project sets up a **browser-based terminal** using [**Wetty**](https://gith
 
 The terminal runs inside a Docker container using `docker-compose`, with **host networking** enabled for direct access to the desired port.
 
+This remote terminal can then be viewed in an iframe from a grafana Textbox panel, allowing for remote control from dashboards.
+
 ---
 
 ## 🚀 Getting Started
