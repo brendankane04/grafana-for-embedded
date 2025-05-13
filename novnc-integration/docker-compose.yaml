@@ -1,0 +1,9 @@
+services:
+  novnc:
+    image: dorowu/ubuntu-desktop-lxde-vnc
+    ports:
+      - "6080:80"    # noVNC web access
+      - "5901:5900"  # optional: direct VNC access
+    environment:
+      VNC_PASSWORD: vncpassword
+    restart: unless-stopped
