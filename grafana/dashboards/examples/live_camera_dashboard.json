@@ -1,0 +1,115 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 14,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# Live USB Camera Feed Example\n\nThis panel displays a live video stream from a USB webcam connected to the endpoint device. The stream is provided by [Motion](https://motion-project.github.io/), running inside a Docker container.\n\nMotion is launched from the `live-camera-panel` with the command:\n\n`docker compose up -d`\n\nOnce running, Motion serves the video feed over HTTP on port **3023**. This feed is embedded directly into the Grafana dashboard using an HTML `<iframe>` inside a text panel, allowing operators to monitor the camera in real time without leaving Grafana.\n\n> **Note:** Ensure the USB camera is connected before starting the container and that port 3023 is accessible from the system running the webcam server.\n\nAnd if you're embedding the video using an iframe inside the same Text panel, switch the panel to HTML mode and include something like:\n\n`<iframe src=\"http://${endpoint}:3023\" width=\"640\" height=\"480\">`\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.6.0",
+      "title": "Description",
+      "type": "text"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<iframe src=\"http://${endpoint}:3023\" width=\"640\" height=\"480\">",
+        "mode": "html"
+      },
+      "pluginVersion": "11.6.0",
+      "title": "Camera view",
+      "type": "text"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": [
+    "Video",
+    "Camera",
+    "USB",
+    "iframe"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "localhost",
+          "value": "localhost"
+        },
+        "description": "The hostname or IP address of the endpoint server with the USB camera attached to it",
+        "label": "Endpoint Hostname/IP",
+        "name": "endpoint",
+        "options": [
+          {
+            "selected": true,
+            "text": "localhost",
+            "value": "localhost"
+          }
+        ],
+        "query": "localhost",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Live Camera Example",
+  "uid": "felq45klshzwgc",
+  "version": 10
+}
