@@ -1,4 +1,13 @@
-#!/bin/bash 
+#!/bin/bash
+
+# Ensure the script is running with the script's directory as its working directory
+cd "$(dirname $0)"
+
+# Docker has a convenience script to automatically install docker and docker compose on mutliple systems
+run_convenience_script() {
+	curl -fsSL https://get.docker.com -o get-docker.sh
+	sudo sh get-docker.sh
+}
 
 # Verify the docker installation resulted docker being installed & warn if unfamiliar versions were installed
 verify_install() {
@@ -46,6 +55,10 @@ do_post_install() {
 	sudo systemctl enable docker
 	sudo systemctl start docker
 }
+
+echo "Downloading and Running Convenience Script..."
+run_convenience_script
+echo "Done."
 
 echo "Verifying Installation..."
 verify_install

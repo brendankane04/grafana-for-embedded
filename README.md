@@ -13,7 +13,7 @@ With this setup, Promtail collects your logs, Loki stores and indexes them, and 
 
 Whether you're working with IoT devices, embedded Linux systems, or any hardware development project, this stack gives you the visibility you need. Visualize any data source - from simple CSV files to complex system logs and real-time metrics.
 
-This proven stack can be quickly deployed using Docker. Simply download the repo. If necessary, use the installation scripts to install docker & docker compose on your machine. And then, run the server with docker compose easily.
+This proven stack can be quickly deployed using Docker. Simply download the repo. If necessary, use the full docker installation script to install docker & docker compose on your machine. And then, run the server with docker compose easily.
 
 ## Dashboard Examples
 
@@ -27,14 +27,14 @@ Run the following steps to install docker to proper versions & set the right per
 
 ```bash
 sudo chmod +x *.sh
-./get-docker.sh
-./post_install.sh
+./full_docker_install.sh
 ```
-The `post_install.sh` will verify the installation. If that passes, you can safely run the following command to run the grafana server
+The script downloads & runs docker's official installation script. It then will verify the installation. If that passes, you can safely run the following command to run the grafana server. Finally, the script will configure docker so that it will automatically start on system startup and not necessitate 'sudo'.
 
 ```bash
 docker compose up -d
 ```
+>**NOTE:** `docker compose up -d` and `docker compose up -d` are two different commands and the latter might not work.
 
 If this doesn't work, there may be some issue with permissions with the associated volumes or for the ports
 
