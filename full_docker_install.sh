@@ -5,6 +5,10 @@ cd "$(dirname $0)"
 
 # Docker has a convenience script to automatically install docker and docker compose on mutliple systems
 run_convenience_script() {
+	# Install curl to obtain the script
+	apt-get update -q
+	apt-get install curl -y
+
 	curl -fsSL https://get.docker.com -o get-docker.sh
 	sudo sh get-docker.sh
 }
