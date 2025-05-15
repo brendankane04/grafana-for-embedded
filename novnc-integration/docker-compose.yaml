@@ -1,0 +1,11 @@
+services:
+  novnc:
+    build: .
+    ports:
+      - "6080:80"    # noVNC web access
+    environment:
+      VNC_PASSWORD: ""
+    privileged: true
+    volumes:
+      - /var/log/*.log:/var/log/*.log
+    restart: unless-stopped

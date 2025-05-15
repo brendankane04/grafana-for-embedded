@@ -1,0 +1,115 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 17,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 10,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "### 📋 Embedded Remote Desktop Access\n\nThis panel provides access to a remote **LXDE desktop environment** running inside a Docker container via **noVNC**. Use this interface to:\n\n- Interact with graphical applications installed in the container (e.g., logic analyzer tools, browser, IDEs).\n- Run embedded development tools like `minicom`, `openocd`, and `PulseView`.\n- Monitor or debug hardware via USB-connected interfaces inside the container.\n\n> 🖥️ The noVNC session runs over HTTP and requires no separate VNC viewer — it works directly in your browser. \n\n> The noVNC session can be modified by altering the Dockerfile which builds it.\n\n---\n\n#### 🛠️ Troubleshooting Tips\n\n- If the screen is black or fails to load:\n  - Ensure the container is running.\n  - Verify the noVNC service is reachable on the configured port.\n  - Check browser console for blocked content (CORS, HTTPS mismatch, etc.).\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.6.0",
+      "title": "Description",
+      "type": "text"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 14,
+        "x": 10,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<iframe src=\"http://${endpoint}:6080\" width=\"640\" height=\"480\">",
+        "mode": "html"
+      },
+      "pluginVersion": "11.6.0",
+      "title": "NoVNC Instance",
+      "type": "text"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 41,
+  "tags": [
+    "VNC",
+    "Control",
+    "Remote Desktop",
+    "Remote Control",
+    "GUI",
+    "iframe"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "localhost",
+          "value": "localhost"
+        },
+        "label": "Endpoint hostname/IP",
+        "name": "endpoint",
+        "options": [
+          {
+            "selected": true,
+            "text": "localhost",
+            "value": "localhost"
+          }
+        ],
+        "query": "localhost",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "NoVNC Prototype",
+  "uid": "felq7sufctzb4f",
+  "version": 4
+}
