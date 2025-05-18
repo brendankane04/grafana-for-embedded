@@ -17,9 +17,11 @@ This proven stack can be quickly deployed using Docker. Simply download the repo
 
 ## Dashboard Examples
 
-![Basic Dashboard Screenshot](Images/basic_dashboard.png "Basic Dashboard")
-
+### Reading in HC-SR04 Data via Arduino->UART
 ![Graph Dashboard Screenshot](Images/graph_dashboard.png "Graph Dashboard")
+
+### Basic Docker Logs Visualization (Useful for Build Tools)
+![Basic Dashboard Screenshot](Images/basic_dashboard.png "Basic Dashboard")
 
 # Quick Start
 
@@ -34,7 +36,7 @@ The script downloads & runs docker's official installation script. It then will 
 ```bash
 docker compose up -d
 ```
->**NOTE:** `docker compose up -d` and `docker compose up -d` are two different commands and the latter might not work.
+>**NOTE:** `docker compose up -d` and `docker-compose up -d` are two different commands and the latter might not work.
 
 If this doesn't work, there may be some issue with permissions with the associated volumes or for the ports
 
