@@ -30,17 +30,21 @@ LOKI_IP_ADDR ?= $(error Please set LOKI_IP_ADDR environment variable: export LOK
 .PHONY: simple_agent
 simple_agent: 
 	@echo "Running the minimum stack for an agent node..."
+	@echo "WARNING: This configuration uses various devices (/dev/ttyACM0, /dev/video0, various tcp ports, etc) on the host machine. Please ensure they are available."
 	@echo "Using Loki server at: $(LOKI_IP_ADDR)"
 	@sed "s/<LOKI SERVER URL\/HOSTNAME\/IP>/$(LOKI_IP_ADDR)/" agent-compose.yaml > agent-compose.tmp.yaml
-	docker compose -f agent-compose.tmp.yaml up -d
+
+	docker compose -f agent-compose.tmp.yaml up -d promtail 
 	@rm agent-compose.tmp.yaml
 
 .PHONY: full_agent
 full_agent: 
-	@echo "Running the minium"
+	@echo "Running the full stack for an agent node..."
+	@echo "Using Loki server at: $(LOKI_IP_ADDR)"
+	@sed "s/<LOKI SERVER URL\/HOSTNAME\/IP>/$(LOKI_IP_ADDR)/" agent-compose.yaml > agent-compose.tmp.yaml
 
-	# Run the minimum stack
-	docker compose -f docker-compose.yaml up -d promtail 
+	docker compose -f agent-compose.tmp.yaml up -d promtail 
+	@rm agent-compose.tmp.yaml
 
 	# Run the additional data collectors
 	docker compose -f live-camera-panel/docker-compose.yaml up -d

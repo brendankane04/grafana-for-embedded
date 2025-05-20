@@ -9,9 +9,6 @@ services:
       - /var/log/:/var/log/
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "9080:9080" 
-      - "9090:9090" 
-      - "3100:3100"
+    network_mode: host
     command: -config.file=/etc/promtail/config.yml -config.expand-env=true
     restart: unless-stopped
