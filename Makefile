@@ -27,8 +27,8 @@ full_stack:
 
 LOKI_IP_ADDR ?= $(error Please set LOKI_IP_ADDR environment variable: export LOKI_IP_ADDR=your.loki.server)
 
-.PHONY: simple_agent
-simple_agent: 
+.PHONY: simple_agent_node
+simple_agent_node: 
 	@echo "Running the minimum stack for an agent node..."
 	@echo "WARNING: This configuration uses various devices (/dev/ttyACM0, /dev/video0, various tcp ports, etc) on the host machine. Please ensure they are available."
 	@echo "Using Loki server at: $(LOKI_IP_ADDR)"
@@ -37,8 +37,8 @@ simple_agent:
 	docker compose -f agent-compose.tmp.yaml up -d promtail 
 	@rm agent-compose.tmp.yaml
 
-.PHONY: full_agent
-full_agent: 
+.PHONY: full_agent_node
+full_agent_node: 
 	@echo "Running the full stack for an agent node..."
 	@echo "Using Loki server at: $(LOKI_IP_ADDR)"
 	@sed "s/<LOKI SERVER URL\/HOSTNAME\/IP>/$(LOKI_IP_ADDR)/" agent-compose.yaml > agent-compose.tmp.yaml
@@ -52,6 +52,14 @@ full_agent:
 	docker compose -f remote-terminal/docker-compose.yaml up -d
 	docker compose -f novnc-integration/docker-compose.yaml up -d
 
+.PHONY: master_node
+master_node:
+	@echo "Running the stack for a master node..."
+	@echo "This configuration does not collect any data on its own. It needs agent nodes to send data to it."
+
+	docker compose -f docker-compose.yaml up -d grafana loki
+
+.PHONY: down
 down:
 	@echo "Stopping whichever docker containers are running..."
 	docker compose -f docker-compose.yaml down
