@@ -1,0 +1,25 @@
+---
+- hosts: agents
+  become: true
+  tasks:
+    - name: Create directory
+      file: 
+        path: /home/pi/grafana-docker-compose
+        state: directory
+    - name: Copy directory contents
+      synchronize:
+        src: ./
+        dest: /home/pi/grafana-docker-compose
+        rsync_opts:
+          - "--exclude=.git"
+          - "--exclude=grafana_storage"
+    - name: Stop agent
+      make:
+        chdir: /home/pi/grafana-docker-compose
+        target: down
+    - name: Run agent
+      make:
+        chdir: /home/pi/grafana-docker-compose
+        target: simple_agent
+        params:
+          LOKI_IP_ADDR: 10.0.0.17
