@@ -13,7 +13,15 @@ With this setup, Promtail collects your logs, Loki stores and indexes them, and 
 
 Whether you're working with IoT devices, embedded Linux systems, or any hardware development project, this stack gives you the visibility you need. Visualize any data source - from simple CSV files to complex system logs and real-time metrics.
 
-This proven stack can be quickly deployed using Docker. Simply download the repo. If necessary, use the full docker installation script to install docker & docker compose on your machine. And then, run the server with docker compose easily.
+This proven stack can be quickly deployed using Docker. Simply download the repo. If necessary, use the full docker installation script to install docker and docker compose on your machine. And then, run the server with docker compose easily.
+
+```mermaid
+graph TD;
+      Optional_Data_Collectors-->Promtail;
+      Log_Files-->Promtail;
+      Promtail-->Loki;
+      Loki-->Grafana;
+```
 
 ## Dashboard Examples
 
@@ -25,44 +33,68 @@ This proven stack can be quickly deployed using Docker. Simply download the repo
 
 # Quick Start
 
-Run the following steps to install docker to proper versions & set the right permissions
+Run the following steps to install docker to proper versions and set the right permissions
 
 ```bash
 sudo chmod +x *.sh
 ./full_docker_install.sh
 ```
-The script downloads & runs docker's official installation script. It then will verify the installation. If that passes, you can safely run the following command to run the grafana server. Finally, the script will configure docker so that it will automatically start on system startup and not necessitate 'sudo'.
 
+The script downloads and runs docker's official installation script. It then will verify the installation. If that passes, you can safely run the following command to run the Grafana server. Finally, the script will configure docker so that it will automatically start on system startup and not necessitate 'sudo'.
+
+You will then need to run the simplest, easiest configuration of the Grafana stack wiht the makefile:
+```bash
+make simple_stack
+```
+
+You can also run the simple stack with docke directly:
 ```bash
 docker compose up -d
 ```
+
 >**NOTE:** `docker compose up -d` and `docker-compose up -d` are two different commands and the latter might not work.
 
 If this doesn't work, there may be some issue with permissions with the associated volumes or for the ports
 
-You can pull up the example dashboards in grafana with the following command. You may use firefox or any other browser.
+You can pull up the example dashboards in Grafana with the following command. You may use firefox or any other browser.
 
 ```bash
 firefox http://localhost:3000/dashboards
 ```
 
-# Beacon Mode
+# Extended Data Collection
 
-You can start only the promtail instance if you want to send the logs from the host to another you have network access to, also known as "Beacon Mode". This can be done in the following two steps. 
+## Overview
 
-1. Obtain your loki push API URL from your loki instance (it's similar to the default compose file, simply change the hostname to the remote host)
-2. Replace line 6 of `promtail-beacon-compose.yaml` with the Loki URL obtained in step 1.
+There are various "configurations" the Grafana stack can be in. The simple stack is the most likely to work and not conflict with other systems on the host. However, this functionality can be extended.
+
+There are other sources of data beyond log files on a computer, like reading serial ports and live camera feeds. These can be all be enabled with the following make command.
+
+```bash
+make full_stack
 ```
-      - LOKI_URL=<LOKI PUSH URL> # You can set this to the push URL of your Loki instance 
+
+**Be aware. This configuration uses various resources on the host machine (/dev/ttyACM0, /dev/video0, various ports, etc). So, ensure they are available and you don't need them for anything else.**
+
+If you wish to use some extra data sources and not others, please refer to this project's subdirectories. The extended data collectors have READMEs with instructions on how to en/disable them.
+
+# Agent Mode
+
+## Overview
+There is a way to have some computers (acting as "agent nodes") in your network collect the data from Promtail and other sources and send the data to a central computer (the "master node") for storing and visualizing the data in Loki and Grafana. 
+
+This configuration is great for running Grafana on a cloud server reading data from agents.
+
+```mermaid
+graph TD;
+      agent_node-->master_node;
 ```
-3. Run the command `docker compose up -f promatil-beacon-compose.yaml` in the root of the repo.
 
-The beacon will send the logs to a "Receiver" instance of the stack on another computer.
+## Quickstart
+Setting this up requires two stacks in different configurations, started in the following steps. They also *assume you have the repo on all of the master and agent nodes*:
 
-If you want to run promtail to collect logs with your receive, you can run the normal docker compose up command.
-
-`docker compose up -d`
-
-If you don't want to run promtail on your receiver (like if you're running in a cloud server), you can avoid the promtail service with the following command.
-
-`docker compose up grafana loki -d`
+1. On the computer running the master node, Start a master node on a machine by running `make master_node`.
+2. Record the hostname or IP address of the machine running the master node.
+3. On all the agent machines collecting and reporting data, set the environment variable `LOKI_IP_ADDR` to the hostname or IP recorded in step 2.
+4. Run the command `make simple_agent_node` on the machines. The default Loki datasource should see all the reported logs from the agents, differentiated with the `hostname` tag.
+5. *(Optional) To use extra features, run `make full_agent_node` instead on the agent nodes.
