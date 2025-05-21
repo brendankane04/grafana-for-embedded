@@ -87,7 +87,9 @@ This configuration is great for running Grafana on a cloud server reading data f
 
 ```mermaid
 graph BT;
-      agent_node-->master_node;
+      agent_node_1-->master_node;
+      agent_node_2-->master_node;
+      agent_node_n-->master_node;
 ```
 
 ## Quickstart
