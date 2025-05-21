@@ -16,7 +16,7 @@ Whether you're working with IoT devices, embedded Linux systems, or any hardware
 This proven stack can be quickly deployed using Docker. Simply download the repo. If necessary, use the full docker installation script to install docker and docker compose on your machine. And then, run the server with docker compose easily.
 
 ```mermaid
-graph TD;
+graph BT;
       Optional_Data_Collectors-->Promtail;
       Log_Files-->Promtail;
       Promtail-->Loki;
@@ -86,7 +86,7 @@ There is a way to have some computers (acting as "agent nodes") in your network 
 This configuration is great for running Grafana on a cloud server reading data from agents.
 
 ```mermaid
-graph TD;
+graph BT;
       agent_node-->master_node;
 ```
 
