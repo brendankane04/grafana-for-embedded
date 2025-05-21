@@ -17,10 +17,10 @@ This proven stack can be quickly deployed using Docker. Simply download the repo
 
 ```mermaid
 graph BT;
-      Optional_Data_Collectors-->Promtail (Data Collector);
-      Log_Files-->Promtail (Data Collector);
-      Promtail (Data Collector)-->Loki (Log Database);
-      Loki (Log Database)-->Grafana (Customizable Dashboard UI);
+      Optional_Data_Collectors-->Promtail;
+      Log_Files-->Promtail;
+      Promtail-->Loki;
+      Loki-->Grafana;
 ```
 
 ## Dashboard Examples
