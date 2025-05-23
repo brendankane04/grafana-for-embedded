@@ -20,6 +20,8 @@ graph BT;
       Optional_Data_Collectors-->Promtail;
       Log_Files-->Promtail;
       Promtail-->Loki;
+      Optional_Data_Collectors-->iframes;
+      iframes-->Grafana
       Loki-->Grafana;
 ```
 
