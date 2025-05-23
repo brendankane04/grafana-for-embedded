@@ -17,7 +17,7 @@ This proven stack can be quickly deployed using Docker. Simply download the repo
 
 ```mermaid
 graph BT;
-      Optional_Data_Collectors-->Promtail;
+      Optional_Data_Collectors-->Log_Files;
       Log_Files-->Promtail;
       Promtail-->Loki;
       Optional_Data_Collectors-->iframes;
