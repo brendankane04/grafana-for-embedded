@@ -3,6 +3,12 @@ import serial
 import threading
 import time
 import os
+import signal
+
+# shut down gracefully (faster) on SIGINT or SIGTERM
+def handle_signal(signum, frame):
+    print(f"Received signal {signum}, shutting down gracefully...")
+    exit(0)
 
 CONFIG_FILE = "config.yaml"
 RETRY_INTERVAL = 5  # seconds between retries
@@ -21,6 +27,8 @@ def read_serial(device_config):
                 ser = serial.Serial(dev, baud, timeout=1)
                 print(f"[{dev}] Connected successfully")
                 print(f"[{dev}] Logging to {logfile}")
+                with open(logfile, "a") as f:
+                    f.write(f"[{dev} - Session Begin]\n")
             except serial.SerialException as e:
                 print(f"[{dev}] Could not open serial port: {e}")
                 time.sleep(RETRY_INTERVAL)
@@ -37,6 +45,7 @@ def read_serial(device_config):
                             f.flush()
                     except (serial.SerialException, OSError) as e:
                         print(f"[{dev}] Connection lost: {e}")
+                        f.write(f"[{dev} - Session End]\n")
                         break
                     except Exception as e:
                         print(f"[{dev}] Error: {e}")
@@ -62,7 +71,7 @@ def main():
         return
 
     for device in config.get("devices", []):
-        t = threading.Thread(target=read_serial, name=f"Serial Reader ({device['device']})", args=(device,))
+        t = threading.Thread(target=read_serial, name=f"Serial Reader ({device['device']})", args=(device,), daemon=True)
         t.start()
 
     # Keep main thread alive
@@ -70,4 +79,7 @@ def main():
         time.sleep(1)
 
 if __name__ == "__main__":
+    # Set up signal handlers for graceful shutdown (received when the docker container is stopped)
+    signal.signal(signal.SIGINT, handle_signal)
+    signal.signal(signal.SIGTERM, handle_signal)
     main()
