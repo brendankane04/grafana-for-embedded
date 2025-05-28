@@ -28,7 +28,7 @@ graph BT;
 ## Dashboard Examples
 
 ### Reading in HC-SR04 Data via Arduino->UART
-![Graph Dashboard Screenshot](Images/graph_dashboard.png "Graph Dashboard")
+![Graph Dashboard Screenshot](Images/graph_dashboard.gif "Graph Dashboard")
 
 ### Basic Docker Logs Visualization (Useful for Build Tools)
 ![Basic Dashboard Screenshot](Images/basic_dashboard.png "Basic Dashboard")
@@ -102,3 +102,20 @@ Setting this up requires two stacks in different configurations, started in the 
 3. On all the agent machines collecting and reporting data, set the environment variable `LOKI_IP_ADDR` to the hostname or IP recorded in step 2.
 4. Run the command `make simple_agent_node` on the machines. The default Loki datasource should see all the reported logs from the agents, differentiated with the `hostname` tag.
 5. *(Optional) To use extra features, run `make full_agent_node` instead on the agent nodes.
+
+# Future Work
+
+The following features will be added in the future. Be sure to star the repo for updates.:
+
+* Containerized dev enviornments to run on agents when using SSH or VNC panels
+* MQTT Reading (Likely with InfluxDB)
+* Reading in HTTP traffic
+* Scraping in Bluetooth/BLE traffic
+* Dashboards for interacting with a bus pirate
+* Prometheus for visualizing metrics as opposed to just logs
+* Dashboards for arduino-as-oscilloscope scraping tool
+* More example dashboards (gauges, alerts, plots, etc)
+* An interfacing tool & dashboard(s) for controlling and collecting data from some lab power supply test equipment.
+* Extending serial-reading to repeatedly poll a REPL/command prompt device with request/response commands for non-headless dat a collection
+* Store images in a database
+* Create a data collection tool which will use computer vision to determine LED states and create dashboards to graph LED states over time
