@@ -11,7 +11,7 @@ def handle_signal(signum, frame):
     exit(0)
 
 CONFIG_FILE = "config.yaml"
-RETRY_INTERVAL = 5  # seconds between retries
+RETRY_INTERVAL = 1  # seconds between retries
 
 def read_serial(device_config):
     dev = device_config["device"]
@@ -43,12 +43,9 @@ def read_serial(device_config):
                             print(f"[{dev}] {line.strip()}")
                             f.write(f"[{dev}] {line.strip()}\n")
                             f.flush()
-                    except (serial.SerialException, OSError) as e:
+                    except Exception as e:
                         print(f"[{dev}] Connection lost: {e}")
                         f.write(f"[{dev} - Session End]\n")
-                        break
-                    except Exception as e:
-                        print(f"[{dev}] Error: {e}")
                         break
 
         finally:
