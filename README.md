@@ -28,7 +28,7 @@ graph BT;
 ## Dashboard Examples
 
 ### Reading in HC-SR04 Data via Arduino->UART
-![Graph Dashboard Screenshot](Images/graph_dashboard.png "Graph Dashboard")
+![Graph Dashboard Screenshot](Images/graph_dashboard.gif "Graph Dashboard")
 
 ### Basic Docker Logs Visualization (Useful for Build Tools)
 ![Basic Dashboard Screenshot](Images/basic_dashboard.png "Basic Dashboard")
